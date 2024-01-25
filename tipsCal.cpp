@@ -22,6 +22,11 @@ void add(MyADT & theMembers) {
     string userName;
     double hourWorked;
 
+    if (theMembers.getElementCount()>=theMembers.getElementsNumber())
+    {
+        cout<<"The number of SA is max, modify the number of SAs to add more SA"<<endl;
+        return;
+    }
     cout<<"Enter username: ";
     cin.ignore();
     getline(cin,userName);
@@ -42,8 +47,13 @@ void add(MyADT & theMembers) {
 
 }
 
-void leave(MyADT & theMembers) {
+void remove(MyADT & theMembers) {
 
+    if (theMembers.getElementCount()==0)
+    {
+        cout<<"There is no SA to remove."<<endl;
+        return;
+    }
    string userName;
    cout<<"Enter username: ";
    cin.ignore();
@@ -87,7 +97,7 @@ void modify(MyADT & theMembers) {
     {
         cout << endl << "Enter ..." << endl;
         cout << "m -> to modify the total money collected." << endl;
-        cout << "n -> to modify the numbers of Server Assistants." << endl;
+        cout << "n -> to increase the numbers of Server Assistants." << endl;
         cout << "h -> to modify the hour worked of a Server Assistant."<<endl;
         cout << "x -> to exit the modification." << endl << endl;
         cout << "Your choice: ";
@@ -127,9 +137,12 @@ void modify(MyADT & theMembers) {
         case 'n':
         {
             unsigned int numSA=0;
-            cout<<"How many Server Assistants you have? ";
+            cout<<"How many Server Assistants you have? (new number must be greater than old number) ";
             cin >> numSA;
-            theMembers.setElements_number(numSA);
+            if (numSA<theMembers.getElementCount())
+                cout<<"Invalid input."<<endl;
+            else
+                theMembers.setElements_number(numSA);
             break;
         }
         case 'x': cout<<"Exit the modification."<<endl;
@@ -169,7 +182,7 @@ int main() {
         // Print menu to stdout
         cout << endl << "Enter ..." << endl;
         cout << "a -> to add a Server Assistant by creating a profile." << endl;
-        cout << "l -> to remove a Server Assistant off the tips calculator." << endl;
+        cout << "r -> to remove a Server Assistant off the tips calculator." << endl;
         cout << "s -> to search for a Server Assistant on tips calculator." << endl;
         cout << "m -> to modify your profile on tips calculator." << endl;
         cout << "p -> to print all members on the tips calculator." << endl;
@@ -183,7 +196,7 @@ int main() {
         input = tolower(input);
         switch(input) {
             case 'a': add(members); break;
-            case 'l': leave(members); break;
+            case 'r': remove(members); break;
             case 's': search(members); break;
             case 'm': modify(members); break;
             case 'p': print(members); break;
