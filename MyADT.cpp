@@ -184,8 +184,9 @@ bool MyADT::remove(const Profile& toBeRemoved) {
         if (elements[i]==toBeRemoved)
         {
             index=i;
+            break;
+
         }
-        break;
     }
     for (unsigned int j=index;j<elementCount-1;j++)
     {
